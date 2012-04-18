@@ -11,7 +11,7 @@
 	.control-group
 		= f.label :long_description, :class => 'control-label'
 		.controls
-			= f.text_area :long_description, :class => 'text_area'
+			= f.text_area :long_description, :class => 'text_area', rows: 3
 	
 	%h2 Operations:
 	= render partial: "operations/form", locals: {form: f}
