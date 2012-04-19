@@ -1,33 +1,25 @@
 - model_class = @exercise.class
-%h1=t '.title', :default => model_class.model_name.human
+%h1=t '.title', :default => model_class.model_name.human + " " + @exercise.no.to_s
+%p= @exercise.long_description
+%h3= @exercise.short_description.to_s + ": "
 
-%p
-	%strong= model_class.human_attribute_name(:no) + ':'
-	%br
-	= @exercise.no
-%p
-	%strong= model_class.human_attribute_name(:short_description) + ':'
-	%br
-	= @exercise.short_description
-%p
-	%strong= model_class.human_attribute_name(:long_description) + ':'
-	%br
-	= @exercise.long_description
-%h2 Operations:
-- @exercise.operations.each do |operation|
-	- model_class = operation.class
-	%p
-		%strong= model_class.human_attribute_name(:numbers) + ':'
-		%br
-		= operation.numbers
-	%p
-		%strong= model_class.human_attribute_name(:operator) + ':'
-		%br
-		= operation.operator
-	%p
-		%strong= model_class.human_attribute_name(:align) + ':'
-		%br
-		= operation.align
+- @exercise.operations.each.with_index do |operation,i|
+	%div= "No. #{i+1}"
+	- numbers = operation.numbers.split(',')
+	- numbers.each.with_index do |number, i|
+		- if operation.align == 'horizontal'
+			%span= number
+			%span= operation.operator unless i == numbers.count-1
+		- else
+			%div= number
+	- if operation.align == 'horizontal'
+		%span=raw " = [&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]"
+	- else
+		%div= "----------"
+		%div=raw "[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]"
+		%div	
+		
+
 
 .form-actions
 	= link_to t('.back', :default => t("helpers.links.back")), exercises_path, :class => 'btn'
