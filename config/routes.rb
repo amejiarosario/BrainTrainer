@@ -1,4 +1,12 @@
 BrainTrainer::Application.routes.draw do
+  get "scores/index"
+
+  get "scores/show"
+
+  get "scores/create"
+
+  get "scores/update"
+
   resources :exercises
 
   resources :operations
