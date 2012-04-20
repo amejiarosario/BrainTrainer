@@ -8,32 +8,33 @@
 = form_tag("#", method: "post", class: "operations-form form#{"-"+horizontal}") do
 	%fieldset
 		%legend= @exercise.short_description.to_s
-
-		- @exercise.operations.each.with_index do |operation,iop|
-			-#------------------------------------		
-			-# Each operation in this exercise.
-			-#------------------------------------
-			%div{class: "control-group #{debug[iop%debug.size]}"}
-				-#%p= "No. #{iop+1}"
-				- numbers = operation.numbers.split(',')
-				- numbers.each.with_index do |number, inum|		
+		.row
+			- @exercise.operations.each.with_index do |operation,iop|
+				-#------------------------------------		
+				-# Each operation in this exercise.
+				-#------------------------------------
+				%div{class: "#{(horizontal.empty?)? "span2":"span6"} control-group #{debug[iop%debug.size]}"}
+					-#%p= "No. #{iop+1}"
+					- numbers = operation.numbers.split(',')
+					- numbers.each.with_index do |number, inum|		
 		
-					-# Print Numbers:
-					- klass = "op#{iop} num#{inum} control-label"
-					- if operation.align == 'horizontal'
-						-# Horizontal
-						%label{class: "#{klass}"}=raw "#{number} #{(inum == numbers.count-1)?'=':operation.operator} &nbsp;"
-					- else
-						-# Vertical
-						%label{class: "#{klass}"}= number	
+						-# Print Numbers:
+						- klass = "op#{iop} num#{inum} control-label"
+						- if operation.align == 'horizontal'
+							-# Horizontal
+							- op = (inum == numbers.count-1)? "=":operation.operator
+							%label{class: "#{klass}"}=raw "#{number} #{op} &nbsp;"
+						- else
+							-# Vertical
+							%label{class: "#{klass}"}= number	
 	
-				-#----------------------
-				-# Print Resuts textbox:
-				-#----------------------
-				- unless operation.align == 'horizontal'
-					.operation-separtor
-				%div.controls
-					= text_field_tag "op_#{iop}", nil, class: 'text_field op_text_answer controls', size: 4, style: "width:35px;"
+					-#----------------------
+					-# Print Resuts textbox:
+					-#----------------------
+					- unless operation.align == 'horizontal'
+						.operation-separtor
+					%div.controls
+						= text_field_tag "op_#{iop}", nil, class: 'text_field op_text_answer controls', size: 4, style: "width:35px;"
 		
 		
 .form-actions
