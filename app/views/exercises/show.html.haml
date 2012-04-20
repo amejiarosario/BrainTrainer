@@ -8,8 +8,11 @@
 = form_tag("#", method: "post", class: "operations-form form#{"-"+horizontal}") do
 	%fieldset
 		%legend= @exercise.short_description.to_s
-		-# Each operation in this exercise.
+
 		- @exercise.operations.each.with_index do |operation,iop|
+			-#------------------------------------		
+			-# Each operation in this exercise.
+			-#------------------------------------
 			%div{class: "control-group #{debug[iop%debug.size]}"}
 				-#%p= "No. #{iop+1}"
 				- numbers = operation.numbers.split(',')
@@ -23,13 +26,15 @@
 					- else
 						-# Vertical
 						%label{class: "#{klass}"}= number	
-
 	
+				-#----------------------
 				-# Print Resuts textbox:
+				-#----------------------
 				- unless operation.align == 'horizontal'
 					.operation-separtor
 				%div.controls
 					= text_field_tag "op_#{iop}", nil, class: 'text_field op_text_answer controls', size: 4, style: "width:35px;"
+		
 		
 .form-actions
 	= submit_tag "done!", class: 'btn', id: "done_btn"
