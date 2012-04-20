@@ -34,4 +34,12 @@ BrainTrainer::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  # Use Pry instead of IRB
+  silence_warnings do
+    require 'pry'
+    IRB = Pry
+  end
+  
 end
+
