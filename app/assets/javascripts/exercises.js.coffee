@@ -5,11 +5,16 @@
 # http://js2coffee.org/
 
 $(document).ready ->
-	# Get all the answers in the textboxes
-  $(".op_text_answer").each ->
-    id = parseInt($(this).attr("id").replace("op_", ""))
-    sum = 0
-    $("div.op" + id).each ->
-      sum += parseInt($(this).text())
-		# put the sum in the textbox
-    $("#op_" + id).val sum
+  $("#done_btn").click ->
+    $(".op_text_answer").each ->
+      id = parseInt($(this).attr("id").replace("op_", ""))
+      sum = 0
+      $("div.op" + id).each ->
+        sum += parseInt($(this).text())
+
+      res = parseInt($("#op_" + id).val())
+      if res is sum
+        console.log "right"
+      else
+        console.log "wrong"
+        $("#op_" + id).attr "style", "color:red;"
