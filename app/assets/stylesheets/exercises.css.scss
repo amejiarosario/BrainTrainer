@@ -1,3 +1,19 @@
 // Place all the styles related to the exercises controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+// Fixes for horizontal forms in exercises
+form.operations-form.form-horizontal .controls {
+	margin-left: 10px;
+}
+
+form.operations-form.form-horizontal .control-label {
+	width: auto;
+}
+
+form.operations-form .operation-separtor{
+	height:0.5px;
+	background:#717171;
+	border-bottom:1px solid #313030;
+	margin:10px;
+}
