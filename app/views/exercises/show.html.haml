@@ -3,21 +3,30 @@
 %p= @exercise.long_description
 %h3= @exercise.short_description.to_s + ": "
 
-- @exercise.operations.each.with_index do |operation,i|
-	%div= "No. #{i+1}"
-	- numbers = operation.numbers.split(',')
-	- numbers.each.with_index do |number, i|
+- @exercise.operations.each.with_index do |operation,iop|
+	%div= "No. #{iop+1}"
+	= form_tag("#", method: "post") do
+		- numbers = operation.numbers.split(',')
+		- numbers.each.with_index do |number, inum|
+			
+			-# Print Numbers:
+			- klass = "op#{iop} num#{inum}"
+			- if operation.align == 'horizontal'
+				-# Horizontal
+				%span{class: "#{klass}"}= number
+				%span= operation.operator unless inum == numbers.count-1
+			- else
+				-# Vertical
+				%div{class: "#{klass}"}= number
+		
+		-# Print Resuts textbox:
 		- if operation.align == 'horizontal'
-			%span= number
-			%span= operation.operator unless i == numbers.count-1
+			%span=raw " = "
+			-#[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]"
 		- else
-			%div= number
-	- if operation.align == 'horizontal'
-		%span=raw " = [&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]"
-	- else
-		%div= "----------"
-		%div=raw "[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]"
-		%div	
+			%div= "----------"
+			-#%div=raw "[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]"
+		= text_field_tag "op_#{iop}", nil, class: 'text_field op_text_answer', size: 4, style: "width:35px;"
 		
 
 
