@@ -5,7 +5,7 @@
 
 - horizontal = (@exercise.operations.first.align == 'horizontal')? "horizontal":""
 - debug = %w[nada ] #error success warning
-= form_tag("#", method: "post", class: "operations-form form#{"-"+horizontal}") do
+= form_tag("/scores", method: "post", class: "operations-form form#{"-"+horizontal}") do
 	%fieldset
 		%legend= @exercise.short_description.to_s
 		.row

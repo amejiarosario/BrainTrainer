@@ -1,14 +1,14 @@
 BrainTrainer::Application.routes.draw do
-  get "scores/index"
+  #get "scores/index"
 
-  get "scores/show"
+  #get "scores/show"
 
-  get "scores/create"
+  #get "scores/create"
 
-  get "scores/update"
+  #get "scores/update"
 
   resources :exercises
-
+  resources :scores, only: [:index, :show, :create, :update]
   resources :operations
 
   get "home/train"

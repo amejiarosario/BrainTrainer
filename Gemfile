@@ -8,6 +8,8 @@ gem 'rails', '3.2.3'
 gem 'haml'
 gem 'haml-rails'
 gem 'gravatar_image_tag'
+gem 'bcrypt-ruby', require: 'bcrypt'
+gem 'email_validator'
 
 group :development, :test do
   gem 'rspec'

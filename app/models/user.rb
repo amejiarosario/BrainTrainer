@@ -1,4 +1,17 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password
-  validates :email, :name, :password, presence: truecat 
+  attr_accessor :password
+  attr_protected :password_encrypted
+  
+  validates :email, :name, :password, presence: true
+  validates :email, uniqueness: true, email: true
+  #validates :password, confirmation: true
+  
+  has_many :scores, dependant: :destroy 
+  
+  def password=(pass)
+    return if pass.blank?
+    @password = pass
+    self.password_encrypted = BCrypt::Password.create(pass)
+  end
+  
 end

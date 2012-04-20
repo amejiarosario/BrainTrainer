@@ -1,10 +1,10 @@
 class CreateScores < ActiveRecord::Migration
   def change
     create_table :scores do |t|
-      t.references :user
-      t.references :exercise
+      t.references :user, null: false
+      t.references :exercise, null: false
       t.integer :attempts
-      t.integer :correctness
+      t.integer :time
 
       t.timestamps
     end
