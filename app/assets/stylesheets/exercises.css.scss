@@ -13,8 +13,7 @@ form.operations-form.form-horizontal .control-label {
 
 form.operations-form .operation-separtor{
 	height:1px;
-	background:#717171;
-	border-bottom:1px solid #313030;
+	border-bottom:1px solid;
 	margin:10px;
 	width:60px;
 }
@@ -23,10 +22,10 @@ form.operations-form div.control-group {
 	margin:15px;
 }
 
-form.operations-form div.control-group * {
-margin-left:auto;
-margin-right:auto;
-text-align:center;
+form.operations-form:not(.form-horizontal) div.control-group * {
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
 }
 
 form.operations-form div.control-group label {
