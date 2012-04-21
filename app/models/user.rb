@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :scores, dependent: :destroy
   has_many :exercises, through: :scores
   
+  accepts_nested_attributes_for :scores, allow_destroy: :true
+  
   def password=(pass)
     return if pass.blank?
     @password = pass

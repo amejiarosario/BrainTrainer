@@ -14,15 +14,15 @@ class ScoresController < ApplicationController
     u = User.find(1) # TODO get logged user
     e = Exercise.find(params[:exercise_id])
     
-    ans_array = r.values.collect{|e| e=e.to_i}
-    unless e.check_correctness (ans_array) > 80
-      redirect_to e, flash: { error: 'You got less than the 80% correct. Please try again.' }
+    user_rating = e.rate r.values.collect{|e| e=e.to_i}
+    
+    unless user_rating > 80
+      redirect_to e, flash: { error: "Please try again, you need more than #{user_rating}% correct answers." }
     else
-      flash.now[:success] = "Great Job! All your answers were correct!"
+      flash.now[:success] = "Great Job! You got the #{user_rating}% of correct answers!"
     end
     
     u.exercises << e
-    attempts = 1
     
     if params.key? :elapsed_time
       time = params[:elapsed_time]
@@ -30,7 +30,9 @@ class ScoresController < ApplicationController
       time = Time.now.to_i - params[:start_time].to_i
     end
     
-    u.scores.last.update_attributes(attempts: attempts, time: time)
+    u.scores.where(exercise_id: e.id).last.update_attributes(time: time, rating: user_rating)
+    
+    redirect_to e, flash: { error: u.errors } if u.errors.any?
     
     logger.debug "=========================="
     logger.debug "scores#create"

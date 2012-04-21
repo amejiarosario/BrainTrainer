@@ -1,6 +1,6 @@
 class Exercise < ActiveRecord::Base
-  has_many :operations, dependent: :destroy
-  has_many :scores, dependent: :destroy
+  has_many :operations, dependent: :destroy, autosave: true
+  has_many :scores, dependent: :destroy, autosave: true
   has_many :users, through: :scores
   
   accepts_nested_attributes_for :operations, allow_destroy: :true, reject_if: lambda {|a| a[:numbers].blank? }

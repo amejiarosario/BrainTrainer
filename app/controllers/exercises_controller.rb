@@ -3,7 +3,8 @@ class ExercisesController < ApplicationController
   # GET /exercises.json
   def index
     @exercises = Exercise.all
-
+    @user = User.first # FIXME get logged user
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @exercises }

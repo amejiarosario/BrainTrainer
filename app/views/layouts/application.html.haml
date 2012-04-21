@@ -34,21 +34,21 @@
 			.content
 				.row
 					.span9
-						-# E.g. redirect_to e, flash: { error: 'You got less than the 80% correct. Please try again.', notice: "fix it!", info: ["info1", "info2"]}
+						-# E.g. redirect_to e, flash: { error: "You got #{user_rating}%, which is less than the 80% correct. Please try again.", notice: "fix it!", success: "Good job! (green)", info: ["info1", "Shown as blue"], other: ["other message shown as warning-yellow", "other one"], nada: "shown as warning-yellow" }
 						-if flash.any?
 							- flash.each do |klass, msg|
-								- clazz = (msg.include? "success")?"success":klass
+								- clazz = (msg.include? "success")? "success" : klass
 								%div{class: "alert alert-#{clazz}"}
 									%a{class:"close", "data-dismiss" => "alert"}x
-									%h2
-										- num = ((msg.respond_to?(:each))? msg.size : 1).to_i
-										%strong= "#{pluralize( num, klass.to_s)}:"
-									%ul
-										- if msg.respond_to? :each
+									- if msg.respond_to? :each
+										%h2
+											%strong= "#{pluralize( msg.count, klass.to_s)}:"
+										%ul
 											- msg.each do |m|
 												%li= m
-										- else
-											%li= msg					
+									- else
+										%h2
+											%strong= msg					
 						= yield
 					.span3
 						.well.sidebar-nav

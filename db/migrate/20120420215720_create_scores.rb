@@ -3,7 +3,7 @@ class CreateScores < ActiveRecord::Migration
     create_table :scores do |t|
       t.references :user, null: false
       t.references :exercise, null: false
-      t.integer :attempts
+      t.integer :rating
       t.integer :time
 
       t.timestamps
