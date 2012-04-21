@@ -24,7 +24,7 @@ class ScoresController < ApplicationController
     attempts = 1
     
     if params.key? :elapsed_time
-      time = params[:elapsed_time] # TODO add javascript counter instead
+      time = params[:elapsed_time]
     else
       time = Time.now.to_i - params[:start_time].to_i
     end
