@@ -14,6 +14,7 @@ class ExercisesController < ApplicationController
   # GET /exercises/1.json
   def show
     @exercise = Exercise.find(params[:id])
+    @score = Score.new
 
     respond_to do |format|
       format.html # show.html.erb

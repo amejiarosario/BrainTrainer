@@ -34,6 +34,20 @@
 			.content
 				.row
 					.span9
+						-# E.g. redirect_to e, flash: { error: 'You got less than the 80% correct. Please try again.', notice: "fix it!", info: ["info1", "info2"]}
+						-if flash.any?
+							- flash.each do |klass, msg|
+								%div{class: "alert alert-#{klass}"}
+									%a{class:"close", "data-dismiss" => "alert"}x
+									%h2
+										- num = ((msg.respond_to?(:each))? msg.size : 1).to_i
+										%strong= "#{pluralize( num, klass.to_s)}:"
+									%ul
+										- if msg.respond_to? :each
+											- msg.each do |m|
+												%li= m
+										- else
+											%li= msg					
 						= yield
 					.span3
 						.well.sidebar-nav
@@ -48,6 +62,12 @@
 				= "Copyright © 2011-#{Time.now.year} by "																																													
 				= link_to "Adrian Mejia", "http://adrianmejia.com"
 				All Rights Reserved.
+
+				- if Rails.env.development?
+					%hr
+					= debug(params) 			
+					%br
+					= debug(flash)
 		/
 			Javascripts
 			\==================================================

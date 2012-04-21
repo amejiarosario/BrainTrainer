@@ -5,7 +5,7 @@
 
 - horizontal = (@exercise.operations.first.align == 'horizontal')? "horizontal":""
 - debug = %w[nada ] #error success warning
-= form_tag("/scores", method: "post", class: "operations-form form#{"-"+horizontal}") do
+= form_tag @score, method: "post", class: "operations-form form#{"-"+horizontal}" do
 	%fieldset
 		%legend= @exercise.short_description.to_s
 		.row
@@ -34,12 +34,13 @@
 					- unless operation.align == 'horizontal'
 						%label.control-label.operation-separtor
 					%div.controls
-						= text_field_tag "op_#{iop}", nil, class: 'text_field op_text_answer controls', size: 4, style: "width:35px;"
+						= text_field_tag "results[#{iop}]", nil, class: 'text_field op_text_answer controls', size: 4, style: "width:35px;"
+						= hidden_field_tag "exercise_id", @exercise.id
+						= hidden_field_tag "time", Time.now.to_i
 		
-		
-.form-actions
-	= submit_tag "done!", class: 'btn', id: "done_btn"
-	=# link_to "done!", "#", class: 'btn', id: "done_btn"
-	= link_to t('.back', :default => t("helpers.links.back")), exercises_path, :class => 'btn'
-	= link_to t('.edit', :default => t("helpers.links.edit")), edit_exercise_path(@exercise), :class => 'btn'
-	= link_to t('.destroy', :default => t("helpers.links.destroy")), exercise_path(@exercise), :method => "delete", :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-danger'
+	.form-actions
+		= submit_tag "done!", class: 'btn', id: "done_btn"
+		=# link_to "done!", "#", class: 'btn', id: "done_btn"
+		= link_to t('.back', :default => t("helpers.links.back")), exercises_path, :class => 'btn'
+		= link_to t('.edit', :default => t("helpers.links.edit")), edit_exercise_path(@exercise), :class => 'btn'
+		= link_to t('.destroy', :default => t("helpers.links.destroy")), exercise_path(@exercise), :method => "delete", :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-danger'

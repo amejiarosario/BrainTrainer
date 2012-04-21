@@ -12,10 +12,12 @@ $(document).ready ->
 			$("label.op" + id).each ->
 				sum += parseInt($(this).text())
 
-			res = parseInt($("#op_" + id).val())
+			res = parseInt($("#results_" + id).val())
 			if res is sum
 				console.log "right"
+				$("div#op"+id).removeClass("error")
 				$("div#op"+id).addClass("success")
 			else
 				console.log "wrong. should be " + sum + "instead of "+ res
+				$("div#op"+id).removeClass("success")
 				$("div#op"+id).addClass("error")

@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true, email: true
   #validates :password, confirmation: true
   
-  has_many :scores, dependant: :destroy 
+  has_many :scores, dependent: :destroy
+  has_many :exercises, through: :scores
   
   def password=(pass)
     return if pass.blank?
