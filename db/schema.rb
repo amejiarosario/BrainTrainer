@@ -33,10 +33,10 @@ ActiveRecord::Schema.define(:version => 20120420222249) do
   create_table "scores", :force => true do |t|
     t.integer  "user_id",     :null => false
     t.integer  "exercise_id", :null => false
-    t.integer  "attempts"
     t.integer  "time"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "rate"
   end
 
   add_index "scores", ["exercise_id"], :name => "index_scores_on_exercise_id"

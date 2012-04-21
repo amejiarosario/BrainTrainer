@@ -14,7 +14,8 @@ class ScoresController < ApplicationController
     u = User.find(1) # TODO get logged user
     e = Exercise.find(params[:exercise_id])
     
-    unless e.check_answers r.values.collect{|e| e=e.to_i} 
+    ans_array = r.values.collect{|e| e=e.to_i}
+    unless e.check_correctness (ans_array) > 80
       redirect_to e, flash: { error: 'You got less than the 80% correct. Please try again.' }
     else
       flash.now[:success] = "Great Job! All your answers were correct!"

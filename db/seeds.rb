@@ -8,12 +8,40 @@
 
 u = User.create(name: "Adrian Mejia", email:"adriansky@gmail.com", password:"1234")
 
-e = Exercise.create(no: 1, short_description: "short_description", long_description: "long_description")
-o = Operation.create(numbers:"12,26,82,29", operator: "+", align:"vertial")
+e = Exercise.create(no: 1, 
+      short_description: "Add in pairs that sum 10", 
+      long_description: "Add the following numbers from top down by grouping pairs of numbers that sum 10.")
+o = Operation.create(numbers:"7,6,4,5,1,9", operator: "+", align:"vertial")
 e.operations << o
-o = Operation.create(numbers:"78,18,29,18", operator: "+", align:"vertial")
+o = Operation.create(numbers:"8,9,1,2,3,7", operator: "+", align:"vertial")
 e.operations << o
+o = Operation.create(numbers:"5,2,8,4,1,9", operator: "+", align:"vertial")
+e.operations << o
+e.save
 
-u.exercises << e
-u.scores.last.attempts = 1
-u.scores.last.time = 236
+e = Exercise.create(no: 2, 
+      short_description: "Mental Addition add 11", 
+      long_description: "Add 11 to each of the numbers.\nFirst add the tens of one number to the whole other and then the units. \nFor example:\n34+11 say 34,44,45")
+o = Operation.create(numbers:"1", operator: "+11", align:"horizontal")
+e.operations << o
+o = Operation.create(numbers:"57", operator: "+11", align:"horizontal")
+e.operations << o
+o = Operation.create(numbers:"13", operator: "+11", align:"horizontal")
+e.operations << o
+e.save
+
+e = Exercise.create(no: 3, 
+      short_description: "Vertical Test", 
+      long_description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+o = Operation.create(numbers:"1,2,3,4,5,6", operator: "*", align:"horizontal")
+e.operations << o
+o = Operation.create(numbers:"45,78,98,32,73,45", operator: "+", align:"horizontal")
+e.operations << o
+o = Operation.create(numbers:"800,123,235,356", operator: "-", align:"horizontal")
+e.operations << o
+e.save
+
+# 
+# u.exercises << e
+# u.scores.last.attempts = 1
+# u.scores.last.time = 236

@@ -10,11 +10,24 @@ class Exercise < ActiveRecord::Base
   validates :long_description, :no, :short_description, presence: true
   validates :no, uniqueness: true
   
-  def check_answers(results)
-    ans = self.operations.inject([]){|s,e| s << e.answer}
-    logger.debug ans.inspect
-    logger.debug results
-    results == ans
+  def answers
+    @answers ||= self.operations.inject([]){|s,e| s << e.answer}
+  end
+  
+  #
+  def check_answers(user_answers)
+    user_answers == answers
+  end
+  
+  # get total of correct answers in percentage
+  def rate(user_answers)
+    rate = 0
+    user_answers.each do |ua|
+      answers.each do |a|
+        rate += 1 if a == ua
+      end
+    end
+    rate = (100 * rate / answers.size)
   end
   
 end

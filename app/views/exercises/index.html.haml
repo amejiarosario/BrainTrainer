@@ -7,10 +7,13 @@
 			%th= model_class.human_attribute_name(:no)
 			%th= model_class.human_attribute_name(:short_description)
 			%th= model_class.human_attribute_name(:long_description)
+			%th Attempts
+			%th Score (%)
+			%th Time
 			/%th= model_class.human_attribute_name(:created_at)
 			%th=t '.actions', :default => t("helpers.actions")
 	%tbody
-		-# TODO show score and only show the next exercise and the ones already done.
+		-# CHANGED show scores and only show the next exercise and the ones already done.
 		-# TODO show edit CRUD buttons just for the admin user
 		-# TODO create admin user
 		- last_exercise = nil
@@ -23,6 +26,8 @@
 				%td= exercise.short_description
 				%td= truncate(exercise.long_description, :length => 60, :omission => '...') 
 				/%td=l exercise.created_at
+				%td= @exercises.scores.count
+				%td= @exercises.scores
 				%td
 					= link_to t('.edit', :default => t("helpers.links.edit")), edit_exercise_path(exercise), :class => 'btn btn-mini'
 					= link_to t('.destroy', :default => t("helpers.links.destroy")), exercise_path(exercise), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'
