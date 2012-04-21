@@ -48,7 +48,8 @@ class ExercisesController < ApplicationController
         format.html { redirect_to @exercise, notice: 'Exercise was successfully created.' }
         format.json { render json: @exercise, status: :created, location: @exercise }
       else
-        format.html { render action: "new" }
+        flash.now[:error] = @exercise.errors.full_messages
+        format.html { render action: "new"}
         format.json { render json: @exercise.errors, status: :unprocessable_entity }
       end
     end

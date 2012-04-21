@@ -36,7 +36,7 @@
 					%div.controls
 						= text_field_tag "results[#{iop}]", nil, class: 'text_field op_text_answer controls', size: 4, style: "width:35px;"
 						= hidden_field_tag "exercise_id", @exercise.id
-						= hidden_field_tag "time", Time.now.to_i
+						= hidden_field_tag "start_time", Time.now.to_i
 		
 	.form-actions
 		= submit_tag "done!", class: 'btn', id: "done_btn"

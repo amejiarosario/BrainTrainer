@@ -6,11 +6,15 @@ class Exercise < ActiveRecord::Base
   accepts_nested_attributes_for :operations, allow_destroy: :true, reject_if: lambda {|a| a[:numbers].blank? }
   
   attr_accessible :long_description, :no, :short_description, :operations_attributes
+  
   validates :long_description, :no, :short_description, presence: true
+  validates :no, uniqueness: true
   
-  
-  def check_results (results)
-    false
+  def check_answers(results)
+    ans = self.operations.inject([]){|s,e| s << e.answer}
+    logger.debug ans.inspect
+    logger.debug results
+    results == ans
   end
   
 end

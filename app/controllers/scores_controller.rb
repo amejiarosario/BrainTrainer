@@ -14,16 +14,28 @@ class ScoresController < ApplicationController
     u = User.find(1) # TODO get logged user
     e = Exercise.find(params[:exercise_id])
     
-    unless e.check_results r 
-      redirect_to e, flash: { error: 'You got less than the 80% correct. Please try again.', notice: "fix it!", info: ["info1", "info2"]}
+    unless e.check_answers r.values.collect{|e| e=e.to_i} 
+      redirect_to e, flash: { error: 'You got less than the 80% correct. Please try again.' }
+    else
+      flash.now[:success] = "Great Job! All your answers were correct!"
     end
     
     u.exercises << e
-    u.scores.last.attempts = 1
-    u.scores.last.time = Time.now.to_i - params[:time].to_i    
+    attempts = 1
+    
+    if params.key? :elapsed_time
+      time = params[:elapsed_time] # TODO add javascript counter instead
+    else
+      time = Time.now.to_i - params[:start_time].to_i
+    end
+    
+    u.scores.last.update_attributes(attempts: attempts, time: time)
     
     logger.debug "=========================="
     logger.debug "scores#create"
+    logger.debug r.inspect
+    logger.debug e.inspect
+    logger.debug u.scores.inspect
     logger.debug "user="+u.inspect
     logger.debug "score="+u.scores.last.inspect
     logger.debug "=========================="

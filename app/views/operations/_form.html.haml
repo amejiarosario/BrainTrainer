@@ -10,4 +10,5 @@
 	.control-group
 		= f.label :align, :class => 'control-label'
 		.controls
-			= f.text_field :align, :class => 'text_field'
+			-# f.text_field :align, :class => 'text_field'
+			= f.select :align, [["horizontal","horizontal"],["vertical","vertical"]],  :class => 'text_field'

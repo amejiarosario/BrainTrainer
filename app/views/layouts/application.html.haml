@@ -37,7 +37,8 @@
 						-# E.g. redirect_to e, flash: { error: 'You got less than the 80% correct. Please try again.', notice: "fix it!", info: ["info1", "info2"]}
 						-if flash.any?
 							- flash.each do |klass, msg|
-								%div{class: "alert alert-#{klass}"}
+								- clazz = (msg.include? "success")?"success":klass
+								%div{class: "alert alert-#{clazz}"}
 									%a{class:"close", "data-dismiss" => "alert"}x
 									%h2
 										- num = ((msg.respond_to?(:each))? msg.size : 1).to_i
