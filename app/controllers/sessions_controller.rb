@@ -11,9 +11,10 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:email],params[:password])
     if user
       session[:user_id] = user.id
-      redirect_to exercises_path, notice: "Time to get smarter #{user.name}"
+      flash[:success] = "Time to get smarter #{user.name}"
+      redirect_to exercises_path
     else
-      Flash.now[:error] = "Invalid email or password"
+      flash.now[:error] = "Invalid email or password"
       render 'new'
     end
   end
