@@ -1,0 +1,14 @@
+#login-view
+	%aside
+		%h1 BrainTrainer
+	
+	= form_tag sessions_path do
+		= label_tag :email
+		= text_field_tag :email, params[:email]
+		
+		= label_tag :password
+		= password_field_tag :password
+		
+		= submit_tag "Login"
+	.clear
+		

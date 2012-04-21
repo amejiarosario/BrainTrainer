@@ -7,6 +7,7 @@
 			%ul
 				- @user.errors.full_messages.each do |msg|
 					%li= msg
+	-# TODO in javascript addClass 'error' in the .control_group when there is a field_error in a element.
 	.control-group
 		= f.label :name, :class => 'control-label'
 		.controls
@@ -19,6 +20,10 @@
 		= f.label :password, :class => 'control-label'
 		.controls
 			= f.text_field :password, :class => 'text_field'
+	.control-group
+		= f.label :password_confirmation, :class => 'control-label'
+		.controls
+			= f.text_field :password_confirmation, :class => 'text_field'
 	.form-actions
 		= f.submit nil, :class => 'btn btn-primary'
 		= link_to t('.cancel', :default => t("helpers.links.cancel")), users_path, :class => 'btn'
