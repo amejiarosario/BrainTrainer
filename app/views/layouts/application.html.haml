@@ -22,7 +22,7 @@
 						%span.icon-bar
 						%span.icon-bar
 						%span.icon-bar
-					%a.brand(href="/exercises") BrainTrainer
+					= link_to "BrainTrainer", root_path, class: "brand" #a.brand(href="/exercises") BrainTrainer
 					.container.nav-collapse
 						%ul.nav
 							%li= link_to "Train", exercises_path #home_train_path
@@ -74,10 +74,11 @@
 									%li= link_to "Exercises List", exercises_path
 									%li= link_to "Add Exercise", new_exercise_path
 									%li= link_to "Edit Users", users_path
+			%hr
 			%footer
-				%hr
 				= "Created by "																																													
 				= link_to "Adrian Mejia", "http://adrianmejia.com"
+				= "2012"
 
 				- if Rails.env.development?
 					%hr

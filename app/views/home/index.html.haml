@@ -1,2 +1,7 @@
-%h1 Home#index
-%p Find me in app/views/home/index.html.haml
+.hero-unit
+	%h1 Welcome to BrainTrainer!
+	%p This app will help you to perform calculations quicker, and as side result you will also improve your speed to process information.
+	%p
+		= link_to "Start Training", exercises_path, class: "btn btn-primary btn-large"
+
+= render partial: "home/faq"

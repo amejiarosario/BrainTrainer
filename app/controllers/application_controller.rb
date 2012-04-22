@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  helper_method :current_user, :admin?, :require_login
+  helper_method :current_user, :admin?, :require_login, :require_admin
   
   private
     def current_user
@@ -16,6 +16,13 @@ class ApplicationController < ActionController::Base
       unless current_user
         flash[:info] = "You need to log in first."
         redirect_to login_path
+      end
+    end
+    
+    def require_admin
+      unless admin?
+        flash[:warning] = "You are not authorize for this page."
+        redirect_to root_path
       end
     end
   

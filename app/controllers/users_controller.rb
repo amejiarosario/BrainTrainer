@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_filter :require_login, except: [:new, :create] # FIXME: security issue! user can put the number in the url of the other user.
+  before_filter :require_admin, only: [:index]
+  
   # GET /users
   # GET /users.json
   def index
