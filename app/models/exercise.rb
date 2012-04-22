@@ -22,6 +22,9 @@ class Exercise < ActiveRecord::Base
   # get total of correct answers in percentage
   def rate(user_answers)
     rate = 0
+    logger.debug "*-----------------*"
+    logger.debug answers.inspect
+    logger.debug "*-----------------*"
     user_answers.each do |ua|
       answers.each do |a|
         rate += 1 if a == ua

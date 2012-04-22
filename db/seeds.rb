@@ -6,7 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-u = User.create!(name: "Adrian Mejia", email:"adriansky@gmail.com", password:"1234")
+User.create!(name: "admin", email:"webmaster@adrianmejia.com", password:"1234567890", admin: true)
+User.create!(name: "Adrian Mejia", email:"adriansky@gmail.com", password:"1234")
+User.create!(name: "Test", email:"me@gmail.com", password:"1234")
+
 
 e = Exercise.create!(no: 1, 
       short_description: "Add pairs that sum 10", 
@@ -21,7 +24,6 @@ e.operations << o
 e = Exercise.create!(no: 2, 
       short_description: "Mental Addition add 11", 
       long_description: "Add 11 to each of the numbers.\nFirst add the tens of one number to the whole other and then the units. \nFor example:\n34+11 say 34,44,45")
-e.save
 o = Operation.create!(numbers:"1", operator: "+11", align:"horizontal")
 e.operations << o
 o = Operation.create!(numbers:"57", operator: "+11", align:"horizontal")
@@ -38,7 +40,6 @@ o = Operation.create!(numbers:"45,78,98,32,73,45", operator: "+", align:"horizon
 e.operations << o
 o = Operation.create!(numbers:"800,123,235,356", operator: "-", align:"horizontal")
 e.operations << o
-e.save
 
 # 
 # u.exercises << e

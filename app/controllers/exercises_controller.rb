@@ -1,9 +1,11 @@
 class ExercisesController < ApplicationController
+  before_filter :require_login
+  
   # GET /exercises
   # GET /exercises.json
   def index
     @exercises = Exercise.all
-    @user = User.first # FIXME get logged user
+    @user = current_user # changed get logged user
     
     respond_to do |format|
       format.html # index.html.erb

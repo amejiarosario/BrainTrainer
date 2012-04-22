@@ -3,7 +3,7 @@ class Operation < ActiveRecord::Base
   
   attr_accessible :align, :numbers, :operator
   
-  @@op_pattern = /\A[\+\-\*\/\^](\d+)?\Z/
+  @@op_pattern = /\A([\+\-\*\/\^])(\d+)?\Z/
   
   validates :align, :numbers, :operator, presence: true
   validates :align, inclusion: { in: %w(horizontal vertical)}
@@ -12,8 +12,11 @@ class Operation < ActiveRecord::Base
     
   def answer
     m = @@op_pattern.match self.operator
-    num = (m[0].empty?)? 0 : m[0].to_i
-    self.numbers.split(",").collect{|n| n=n.to_i}.inject(num){|r,e| r+=e}
+    if m[2].nil?
+      self.numbers.split(",").collect{|n| n=n.to_i}.inject { |r,e|  r = r.send(m[1], e) }
+    else
+      self.numbers.split(",").collect{|n| n=n.to_i}.inject(m[2].to_i) { |r,e|  r = r.send(m[1], e) }
+    end
   end
   
 end

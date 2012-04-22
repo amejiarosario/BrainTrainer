@@ -9,6 +9,10 @@
 		= label_tag :password
 		= password_field_tag :password
 		
-		= submit_tag "Login"
-	.clear
 		
+		= submit_tag "Login"
+		%p=raw "New user? #{link_to "Sign up!", signup_path}"
+	.clear
+	%p=raw '&nbsp;'
+	
+	

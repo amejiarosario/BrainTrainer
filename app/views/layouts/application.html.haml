@@ -22,11 +22,11 @@
 						%span.icon-bar
 						%span.icon-bar
 						%span.icon-bar
-					%a.brand(href="/home/train") BrainTrainer
+					%a.brand(href="/exercises") BrainTrainer
 					.container.nav-collapse
 						%ul.nav
-							%li= link_to "Train", home_train_path
-							%li= link_to "Score", home_score_path
+							%li= link_to "Train", exercises_path #home_train_path
+							%li= link_to "Score", exercises_path #home_score_path TODO add score view and stats
 							%li= link_to "About", home_about_path
 						%ul.nav.pull-right
 							- if current_user
@@ -66,13 +66,14 @@
 											%strong= msg					
 						= yield
 					.span3
-						.well.sidebar-nav
-							%h3 Sidebar
-							%ul.nav.nav-list
-								%li.nav-header Admin
-								%li= link_to "Exercises List", exercises_path
-								%li= link_to "Add Exercise", new_exercise_path
-								%li= link_to "Edit Users", users_path
+						- if admin?
+							.well.sidebar-nav
+								%h3 Sidebar
+								%ul.nav.nav-list
+									%li.nav-header Admin
+									%li= link_to "Exercises List", exercises_path
+									%li= link_to "Add Exercise", new_exercise_path
+									%li= link_to "Edit Users", users_path
 			%footer
 				%hr
 				= "Copyright © 2011-#{Time.now.year} by "																																													
