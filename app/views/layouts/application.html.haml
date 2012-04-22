@@ -26,7 +26,7 @@
 					.container.nav-collapse
 						%ul.nav
 							%li= link_to "Train", exercises_path #home_train_path
-							%li= link_to "Score", exercises_path #home_score_path TODO add score view and stats
+							/%li= link_to "Score", exercises_path #home_score_path TODO add score view and stats
 							%li= link_to "About", home_about_path
 						%ul.nav.pull-right
 							- if current_user
@@ -76,9 +76,8 @@
 									%li= link_to "Edit Users", users_path
 			%footer
 				%hr
-				= "Copyright © 2011-#{Time.now.year} by "																																													
+				= "Created by "																																													
 				= link_to "Adrian Mejia", "http://adrianmejia.com"
-				All Rights Reserved.
 
 				- if Rails.env.development?
 					%hr
