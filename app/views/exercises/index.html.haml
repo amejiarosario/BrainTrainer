@@ -19,7 +19,8 @@
 		-# CHANGED create admin user
 		- last_exercise = nil
 		- @exercises.each.with_index do |exercise,i|
-			- break unless i==0 or last_exercise.users.size > 0
+			- unless admin?
+				- break unless i==0 or last_exercise.users.size > 0
 			- last_exercise = exercise
 			%tr
 				/%td= link_to exercise.id, exercise_path(exercise)
