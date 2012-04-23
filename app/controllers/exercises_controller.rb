@@ -1,5 +1,6 @@
 class ExercisesController < ApplicationController
   before_filter :require_login
+  before_filter :require_admin, only: [:destroy, :new, :edit, :update]
   
   # GET /exercises
   # GET /exercises.json
@@ -18,10 +19,16 @@ class ExercisesController < ApplicationController
   def show
     @exercise = Exercise.find(params[:id])
     @score = Score.new
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @exercise }
+    
+    #CHANGED check if the user is allow to access this exercise. If he enter the url manually.
+    unless @exercise.scores.where(["rating >= ? AND user_id = ?",80,current_user.id]).size > 0
+      flash[:warning] = "You have to complete the previous exercises before accessing this one."
+      redirect_to exercises_path
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @exercise }
+      end
     end
   end
 

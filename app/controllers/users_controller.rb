@@ -1,8 +1,22 @@
 class UsersController < ApplicationController
-  # FIXME: security issue! user can put the number in the url of the other user.
-  # FIXME: also any user can access the excercies typing them in the URL
+  # changed: security issue! user can put the number in the url of the other user.
+  # changed: also any user can access the excercies typing them in the URL
   before_filter :require_login, except: [:new, :create] 
   before_filter :require_admin, only: [:index]
+  before_filter :require_be_yourself, only: [:update, :destroy, :edit, :show]
+  
+  def require_be_yourself
+    unless yourself?
+      flash[:warning] = "You cannot access other users data."
+      redirect_to current_user
+    end
+  end
+  
+  def yourself?
+    false if current_user.nil?
+    false unless params.key? :id
+    current_user.id.to_s == params[:id].to_s or admin?    
+  end
   
   # GET /users
   # GET /users.json
@@ -19,7 +33,6 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -40,6 +53,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    logger.debug "-----&&& edit user   &&&----------"
   end
 
   # POST /users

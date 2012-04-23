@@ -1,4 +1,6 @@
 class OperationsController < ApplicationController
+  before_filter :require_admin, only: [:destroy, :new, :edit, :update]
+  
   # GET /operations
   # GET /operations.json
   def index
