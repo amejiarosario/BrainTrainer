@@ -36,7 +36,7 @@
 					- unless operation.align == 'horizontal'
 						%label.control-label.operation-separtor
 					%div.controls
-						= text_field_tag "results[#{iop}]", nil, class: 'text_field op_text_answer controls op-number', size: 6, style: "width:45px; height:25px;"
+						= number_field_tag "results[#{iop}]", nil, class: 'text_field op_text_answer controls op-number', size: 6, style: "width:60px; height:25px;"
 						= hidden_field_tag "exercise_id", @exercise.id
 						= hidden_field_tag "start_time", Time.now.to_i
 		
