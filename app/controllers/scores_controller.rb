@@ -30,8 +30,8 @@ class ScoresController < ApplicationController
     
 
     
-    if params.key? :elapsed_time
-      time = params[:elapsed_time]
+    if params.key? :elapsed_time and params[:elapsed_time].to_i > 0
+      time = params[:elapsed_time] 
     else
       time = Time.now.to_i - params[:start_time].to_i
     end

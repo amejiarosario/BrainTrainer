@@ -25,11 +25,11 @@ class Exercise < ActiveRecord::Base
     logger.debug "*-----------------*"
     logger.debug answers.inspect
     logger.debug "*-----------------*"
-    user_answers.each do |ua|
-      answers.each do |a|
-        rate += 1 if a == ua
-      end
+    answers.each.with_index do |a,i|
+        rate += 1 if a == user_answers[i]
     end
+    logger.debug "rate=" + rate.to_s + "; ans.size=" + answers.size.to_s
+    logger.debug (100 * rate / answers.size)
     rate = (100 * rate / answers.size)
   end
   

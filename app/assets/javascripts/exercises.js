@@ -30,6 +30,7 @@ $(document).ready(function(){
 	var current = 0;
 	// start button
 	$("#start-btn").click(function(){
+		
 		console.log("click start");
 		// TODO show at the end $(".form-actions").show();
 		$("#op"+current).show().addClass("focus");
@@ -63,6 +64,8 @@ $(document).ready(function(){
 		
 		//TODO start timer
 		$("#start-btn").hide();
+		createTimerHTML();
+		startTimer();
 	});
 });
 
@@ -87,6 +90,18 @@ function filterForNumericTypes(){
 	});
 }
 
+function startTimer(){
+	setTimeout(function(){
+		var actual = parseInt($("#timer").text());
+		$("#timer").text(actual+1);
+		$("#elapsed_time").val(actual+1);
+		startTimer();
+	},1000);
+}
+
+function createTimerHTML(){
+	$("div.span3").html('<div class="well sidebar-nav"><h3>Timer:</h3><p id="timer">0</p></div>');
+}
 // function validationFunction() {
 //   if(good_to_submit_on_enter) {
 //     return true;
