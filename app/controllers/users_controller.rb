@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :require_login, except: [:new, :create] # FIXME: security issue! user can put the number in the url of the other user.
+  # FIXME: security issue! user can put the number in the url of the other user.
+  # FIXME: also any user can access the excercies typing them in the URL
+  before_filter :require_login, except: [:new, :create] 
   before_filter :require_admin, only: [:index]
   
   # GET /users

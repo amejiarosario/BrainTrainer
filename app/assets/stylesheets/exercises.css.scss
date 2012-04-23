@@ -2,7 +2,38 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// -----------------------------
+// Operations styles
+// -----------------------------
+div#operations .operation {
+	padding:20px 20px;
+	
+	.op-number {
+		font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+		font-size:22px;
+	}
+}
+
+// added on focus
+div#operations .operation.focus {
+	border:3px solid #026873;
+	border-radius: 10px;
+	background: #F2F0CE;
+}
+
+
+.start-btn{
+	text-align: center;
+	
+	#start-btn {
+		margin: 60px auto;
+	}
+}
+
+// -----------------------------
 // Fixes for horizontal forms in exercises
+// -----------------------------
+
 form.operations-form.form-horizontal .controls {
 	margin-left: 10px;
 }
@@ -29,6 +60,6 @@ form.operations-form:not(.form-horizontal) div.control-group * {
 }
 
 form.operations-form div.control-group label {
-	margin-left:auto !important;
-	margin-right:auto !important;
+	margin-left:auto ;
+	margin-right:auto;
 }
