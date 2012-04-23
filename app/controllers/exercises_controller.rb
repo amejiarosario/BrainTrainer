@@ -20,8 +20,10 @@ class ExercisesController < ApplicationController
     @exercise = Exercise.find(params[:id])
     @score = Score.new
     
+    previous = Exercise.where(no: @exercise.no-1)[0]
+    
     #CHANGED check if the user is allow to access this exercise. If he enter the url manually.
-    unless @exercise.scores.where(["rating >= ? AND user_id = ?",80,current_user.id]).size > 0
+    unless Exercise.first.no == @exercise.no or (previous && previous.scores.where(["rating >= ? AND user_id = ?",80,current_user.id]).size > 0)
       flash[:warning] = "You have to complete the previous exercises before accessing this one."
       redirect_to exercises_path
     else
