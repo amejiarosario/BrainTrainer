@@ -10,19 +10,22 @@ User.create!(name: "admin", email:"webmaster@adrianmejia.com", password:"1234567
 User.create!(name: "Adrian Mejia", email:"adriansky@gmail.com", password:"1234")
 User.create!(name: "Test", email:"me@gmail.com", password:"1234")
 
-e = Exercise.create!(no: 0, 
-      short_description: "test", 
-      long_description: "test")
-      o = Operation.create!(numbers: "2,2", operator: "+", align:"vertical")
-      e.operations << o
-      o = Operation.create!(numbers: "2,3", operator: "+", align:"vertical")
-      e.operations << o
-      o = Operation.create!(numbers: "5,3", operator: "+", align:"vertical")
-      e.operations << o
-      o = Operation.create!(numbers: "1,3", operator: "+", align:"vertical")
-      e.operations << o
-      o = Operation.create!(numbers: "7,8", operator: "+", align:"vertical")
-      e.operations << o
+if Rails.env.development?
+    e = Exercise.create!(no: 0, 
+          short_description: "test", 
+          long_description: "test")
+          
+    o = Operation.create!(numbers: "2,2", operator: "+", align:"vertical")
+    e.operations << o
+    o = Operation.create!(numbers: "2,3", operator: "+", align:"vertical")
+    e.operations << o
+    o = Operation.create!(numbers: "5,3", operator: "+", align:"vertical")
+    e.operations << o
+    o = Operation.create!(numbers: "1,3", operator: "+", align:"vertical")
+    e.operations << o
+    o = Operation.create!(numbers: "7,8", operator: "+", align:"vertical")
+    e.operations << o
+end
 
 e = Exercise.create!(no: 1, 
       short_description: "Add pairs that sum 10", 

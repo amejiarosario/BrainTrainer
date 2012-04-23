@@ -21,7 +21,7 @@ class ScoresController < ApplicationController
     
     user_rating = e.rate r.values.collect{|e| e=e.to_i}
     
-    unless user_rating > 80
+    unless user_rating >= 80
       redirect_to e, flash: { error: "Please try again, you need more than #{user_rating}% correct answers." }
     else
       flash[:success] = "Great Job! You got the #{user_rating}% of correct answers!"

@@ -20,7 +20,7 @@
 		- last_exercise = nil
 		- @exercises.each.with_index do |exercise,i|
 			- unless admin?
-				- break unless i==0 or last_exercise.scores.where(["rating > ? AND user_id = ?",80,current_user.id]).size > 0
+				- break unless i==0 or last_exercise.scores.where(["rating >= ? AND user_id = ?",80,current_user.id]).size > 0
 			- last_exercise = exercise
 			%tr
 				/%td= link_to exercise.id, exercise_path(exercise)
