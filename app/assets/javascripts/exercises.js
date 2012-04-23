@@ -17,6 +17,7 @@ $(document).ready(function(){
 	// 	}
 	// });
 	
+	filterForNumericTypes();
 	
 	// hide done button
 	$(".form-actions").hide();
@@ -76,6 +77,14 @@ function showNext(current_op){
 		$(".form-actions").show();
 		$("#done_btn").focus();
 	}
+}
+
+function filterForNumericTypes(){
+	$('*[type="number"]').keyup(function() {
+		if (this.value.match(/[^0-9]/g)) {
+			this.value = this.value.replace(/[^0-9]/g, '');
+		}
+	});
 }
 
 // function validationFunction() {
