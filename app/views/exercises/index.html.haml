@@ -28,7 +28,7 @@
 				%td= truncate(exercise.short_description, length: 60, omission: '...')
 				/%td= truncate(exercise.long_description, :length => 20, :omission => '...') 
 				/%td=l exercise.created_at
-				%td= exercise.scores.count
+				%td= exercise.scores.where(user_id: current_user.id).size
 				- last_score = @user.scores.where(exercise_id: exercise.id).last
 				%td= (last_score.nil? or last_score.rating.nil?)? "0" : last_score.rating.to_s + "%"
 				%td= (last_score.nil? or last_score.time.nil?)? "0" : last_score.time.to_s + " sec."

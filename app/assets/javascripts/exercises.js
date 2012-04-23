@@ -20,7 +20,7 @@ $(document).ready(function(){
 	filterForNumericTypes();
 	
 	// hide done button
-	$(".form-actions").hide();
+	$("operations .form-actions").hide();
 	
 	// hide all operations
 	$(".operation").each(function(){
@@ -77,7 +77,7 @@ function showNext(current_op){
 	$("#op"+(current_op+2)).show(1000);
 	if (current_op === total_op){
 		good_to_submit_on_enter = true;
-		$(".form-actions").show();
+		$("operations .form-actions").show();
 		$("#done_btn").focus();
 	}
 }
