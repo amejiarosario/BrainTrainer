@@ -1,5 +1,6 @@
 var total_op = -1;
 var good_to_submit_on_enter = false;
+var operation_form_control_buttons = ".operations-form .form-actions"
 $(document).ready(function(){
 	// prevent submit form on enter
 	// $(window).keydown(function(event){
@@ -20,7 +21,7 @@ $(document).ready(function(){
 	filterForNumericTypes();
 	
 	// hide done button
-	$("operations .form-actions").hide();
+	$(operation_form_control_buttons).hide();
 	
 	// hide all operations
 	$(".operation").each(function(){
@@ -77,7 +78,7 @@ function showNext(current_op){
 	$("#op"+(current_op+2)).show(1000);
 	if (current_op === total_op){
 		good_to_submit_on_enter = true;
-		$("operations .form-actions").show();
+		$(operation_form_control_buttons).show();
 		$("#done_btn").focus();
 	}
 }
