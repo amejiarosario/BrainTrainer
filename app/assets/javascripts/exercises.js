@@ -23,10 +23,13 @@ $(document).ready(function(){
 	// hide done button
 	$(operation_form_control_buttons).hide();
 	
-	// hide all operations
+	
+	// hide all operations (now done by css)
+	/*
 	$(".operation").each(function(){
 		$(this).hide()
 	});
+	*/
 	
 	var current = 0;
 	// start button
