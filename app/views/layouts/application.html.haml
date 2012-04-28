@@ -32,13 +32,14 @@
 							- if current_user
 								%li.dropdown
 									%a.dropdown-toggle{href: "#", "data-toggle" => "dropdown" }
+										%i.icon-user
 										= current_user.name || current_user.email
 										%b.caret
 									%ul.dropdown-menu
-										%li= link_to "Profile", current_user
-										%li= link_to "Score", "#"
+										%li= link_to raw('<i class="icon-cog"></i> Profile'), current_user
+										%li= link_to raw('<i class="icon-signal"></i> Score'), "#"
 										%li.divider
-										%li= link_to "Logout", logout_path
+										%li= link_to raw('<i class="icon-off"></i> Logout'), logout_path
 							- else
 								%li= link_to "Login", login_path
 							-#%li.dropdown

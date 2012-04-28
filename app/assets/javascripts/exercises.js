@@ -86,7 +86,7 @@ function createTimerHTML(){
 	c.html('');
 	c.append('<hr />')
 	c.append('<h4>Time</h4>');
-	c.append('<div id="timer">0</div>');
+	c.append('<i class="icon-time"></i><span id="timer" style="margin-left:5px;">0</span>');
 	c.append('<hr />')
 	c.append('<h4>Operations Completed</h4>');
 	c.append('<div class="progress progress-striped active"><div id="user_progress" class="bar" style="width: 40%;"><span id="completed_percentage"></span></div></div>');
