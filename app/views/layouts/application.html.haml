@@ -66,8 +66,8 @@
 											%strong= msg					
 						= yield
 					.span3
-						- if admin?
-							.well.sidebar-nav
+						.well.sidebar-nav-fixed{class: (admin?) ? "admin" : "non-admin" }
+							- if admin?
 								%h3 Sidebar
 								%ul.nav.nav-list
 									%li.nav-header Admin

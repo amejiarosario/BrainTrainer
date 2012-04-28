@@ -15,6 +15,26 @@ div#operations .operation {
 	}
 }
 
+div.non-admin{
+	display:none;
+}
+
+
+// sticky sidebar
+.sidebar-nav-fixed {
+    //padding: 9px 0;
+    position:fixed;
+    width:275px;
+    //left:20px;
+    //top:60px;
+}
+/*
+.row-fluid > .span-fixed-sidebar {
+    margin-left: 290px;
+}
+*/
+
+
 // added on focus
 div#operations .operation.focus {
 	border:3px solid #026873;

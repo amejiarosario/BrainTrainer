@@ -1,6 +1,8 @@
 var total_op = -1;
 var good_to_submit_on_enter = false;
 var operation_form_control_buttons = ".operations-form .form-actions"
+
+
 $(document).ready(function(){
 	// prevent submit form on enter
 	// $(window).keydown(function(event){
@@ -74,7 +76,8 @@ $(document).ready(function(){
 });
 
 function showNext(current_op){
-	console.log("showNext.op="+current_op)
+	console.log("showNext.op => "+current_op+" / "+ total_op)
+		setUserProgres(parseInt(100*parseInt(current_op)/parseInt(total_op)));
 	$("#op"+(current_op+1)+" input").focus();
 	$("#op"+current_op).removeClass("focus",1000);
 	$("#op"+(current_op+1)).addClass("focus",1000);
@@ -103,8 +106,24 @@ function startTimer(){
 	},1000);
 }
 
+
 function createTimerHTML(){
-	$("div.span3").html('<div class="well sidebar-nav"><h3>Timer:</h3><p id="timer">0</p></div>');
+	var sidebar = $("div.span3 div.sidebar-nav-fixed");
+	sidebar.show();
+	sidebar.find('h3').text("Your Progress");
+	var c = sidebar.find('ul');
+	c.html('');
+	c.append('<h4>Time</h4>');
+	c.append('<div id="timer">0</div>');
+	c.append('<h4>Exercises Completed</h4>');
+	c.append('<div class="progress progress-striped active"><div id="user_progress" class="bar" style="width: 40%;"></div></div>');
+	setUserProgres(0);
+	
+	//sidebar.find('ul li:first').text('Time');
+	//sidebar.find('ul li[1]').innerHTML('<div id="timer">0</div>');
+	//sidebar.html('<h3>Your Progress</h3>');
+	//sidebar.append('<ul><li class="nav-header">Time</li><li id="timer">0</li><li class="nav-header">Exercises Completed</li><li></li></lul>');
+	//sidebar.append('<h3></h3>')
 }
 // function validationFunction() {
 //   if(good_to_submit_on_enter) {
@@ -112,6 +131,11 @@ function createTimerHTML(){
 //   } 
 //   return false;
 // }
+
+function setUserProgres(percentage){
+	console.log("setUserProgres = "+ percentage);
+	$('#user_progress').attr('style','width:'+percentage+'%');
+}
 
 
 /*
