@@ -49,6 +49,7 @@ function showNext(current_op){
 	console.log("showNext.op => "+current_op+" / "+ total_op)
 	setUserProgres(parseInt(100*parseInt(current_op)/parseInt(total_op)));
 	
+	// TODO this is bubby (if the user jump a textbox it lose the right track)
 	$("#op"+current_op).removeClass("focus",1000);
 	$("#op"+(current_op+1)+" input").focus();
 	$("#op"+(current_op+1)).addClass("focus",1000);
@@ -80,8 +81,14 @@ function startTimer(){
 
 function createTimerHTML(){
 	var sidebar = $("div.span3 div.sidebar-nav-fixed");
+	$("div.non-admin").show();
 	sidebar.show();
+	if(sidebar.find('h3').size()===0){
+		sidebar.append("<h3></h3><ul class=\"nav nav-list\"></ul>");
+		console.log("h3 created");
+	}
 	sidebar.find('h3').text("Your Progress");
+	console.log("show progress");
 	var c = sidebar.find('ul');
 	c.html('');
 	c.append('<hr />')
