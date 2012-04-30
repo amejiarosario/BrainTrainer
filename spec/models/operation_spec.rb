@@ -10,8 +10,17 @@ describe Operation do
       @operation.numbers = ""
       @operation.should_not be_valid
     end
-    it "should be invalid without operator"
-    it "should be invalid without aligniation"
+    
+    it "should be invalid without operator" do
+      @operation.operator = ""
+      @operation.should_not be_valid
+    end
+    
+    it "should be invalid without aligniation" do
+      @operation.align = ""
+      @operation.should_not be_valid
+    end
+    
   end
   context "calculating operations answers" do
     
