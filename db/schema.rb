@@ -14,42 +14,42 @@
 ActiveRecord::Schema.define(:version => 20120421221202) do
 
   create_table "exercises", :force => true do |t|
-    t.integer  "no"
-    t.string   "short_description"
-    t.text     "long_description"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.integer   "no"
+    t.string    "short_description"
+    t.text      "long_description"
+    t.timestamp "created_at",        :null => false
+    t.timestamp "updated_at",        :null => false
   end
 
   create_table "operations", :force => true do |t|
-    t.text     "numbers"
-    t.string   "operator"
-    t.string   "align"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.integer  "exercise_id"
+    t.text      "numbers"
+    t.string    "operator"
+    t.string    "align"
+    t.timestamp "created_at",  :null => false
+    t.timestamp "updated_at",  :null => false
+    t.integer   "exercise_id"
   end
 
   create_table "scores", :force => true do |t|
-    t.integer  "user_id",     :null => false
-    t.integer  "exercise_id", :null => false
-    t.integer  "rating"
-    t.integer  "time"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer   "user_id",     :null => false
+    t.integer   "exercise_id", :null => false
+    t.integer   "rating"
+    t.integer   "time"
+    t.timestamp "created_at",  :null => false
+    t.timestamp "updated_at",  :null => false
   end
 
   add_index "scores", ["exercise_id"], :name => "index_scores_on_exercise_id"
   add_index "scores", ["user_id"], :name => "index_scores_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email"
-    t.string   "password_encrypted"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
-    t.string   "password_salt"
-    t.boolean  "admin",              :default => false
-    t.string   "name"
+    t.string    "email"
+    t.string    "password_encrypted"
+    t.timestamp "created_at",                            :null => false
+    t.timestamp "updated_at",                            :null => false
+    t.string    "password_salt"
+    t.boolean   "admin",              :default => false
+    t.string    "name"
   end
 
 end

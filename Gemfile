@@ -14,8 +14,16 @@ gem 'email_validator'
 group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
   gem 'sqlite3'
   gem 'pry'
+end
+
+group :test do
+  gem 'faker'
+  gem 'capybara'
+  gem 'guard-rspec'
+  gem 'launchy'
 end
 
 group :production do
