@@ -1,10 +1,19 @@
 require 'spec_helper'
 
 describe Operation do
-  context "calculating operations answers" do
-    before :each do
-      @operation = FactoryGirl.create(:operation)
+  before :each do
+    @operation = FactoryGirl.create(:operation)
+  end
+  
+  context "validations" do
+    it "should be invalid without numbers" do
+      @operation.numbers = ""
+      @operation.should_not be_valid
     end
+    it "should be invalid without operator"
+    it "should be invalid without aligniation"
+  end
+  context "calculating operations answers" do
     
     it "gets the correct answer for sum exersice" do
       @operation.should be_valid
