@@ -1,3 +1,6 @@
+- content_for :title do
+	- "#{@exercise.short_description.to_s} | BrainTrainer"
+	
 - model_class = @exercise.class
 %h1=t '.title', :default => model_class.model_name.human + " " + @exercise.no.to_s
 %p= @exercise.long_description

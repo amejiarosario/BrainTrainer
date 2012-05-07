@@ -1,3 +1,6 @@
+- content_for :title do
+	Exercises | BrainTrainer
+
 - model_class = Exercise.new.class
 %h1=t '.title', :default => model_class.model_name.human.pluralize
 %table.table.table-striped
