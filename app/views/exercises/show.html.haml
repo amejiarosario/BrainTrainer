@@ -7,7 +7,7 @@
 -# %h3= @exercise.short_description.to_s + ": "
 
 - horizontal = (@exercise.operations.first.align == 'horizontal')? "horizontal":""
-= form_tag @score, method: "post", class: "operations-form form#{"-"+horizontal}" do
+= form_tag @score, method: "post", class: "operations-form form#{"-"+horizontal}", autocomplete: "off" do
 	
 	-# Hidden fields:
 	= hidden_field_tag "start_time", Time.now.to_i
