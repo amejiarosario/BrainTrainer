@@ -15,8 +15,16 @@
 	
 	%fieldset
 		%legend= @exercise.short_description.to_s
-		.start-btn
-			= link_to "Start", "#", class: "btn btn-success btn-large", id: "start-btn"
+		
+		-#.start-btn
+		-#	= link_to "Start", "#", class: "btn btn-success btn-large", id: "start-btn"
+		
+		.button#start-btn
+			.outer
+				.height
+					.inner 
+						= link_to "Start", "#"
+		
 		.row#operations
 			- @exercise.operations.each.with_index do |operation,iop|
 				-#------------------------------------		
