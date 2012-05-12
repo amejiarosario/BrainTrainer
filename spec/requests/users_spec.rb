@@ -33,6 +33,7 @@ describe "Users", type: :request do
       
       it "should be able to execute the exercises correctly" do
         page.should have_content("Exercise")
+        visit exercise_path(1)
       end
     end
     
