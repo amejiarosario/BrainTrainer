@@ -10,8 +10,8 @@ FactoryGirl.define do
   end
   
   # exercise factory
-  factory :exercise do
-    no {1 + rand(1000)}
+  factory :exercise do |n|
+    no n
     short_description {Faker::Lorem.sentence}
     long_description {Faker::Lorem.paragraphs}
   end
