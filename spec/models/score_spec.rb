@@ -6,7 +6,7 @@ describe Score do
     @e = FactoryGirl.create(:exercise)
     @o = FactoryGirl.create(:operation)
     @e.operations << @o
-    
+  
     @u.exercises << @e
     @s = @u.scores.first
     #@s = Score.create(user_id: @u.id, exercise_id: @e.id)

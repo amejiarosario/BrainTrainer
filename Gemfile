@@ -11,6 +11,9 @@ gem 'gravatar_image_tag'
 gem 'bcrypt-ruby', require: 'bcrypt'
 gem 'email_validator'
 
+#auth
+gem 'omniauth-facebook'
+
 group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
