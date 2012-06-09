@@ -28,7 +28,7 @@ describe UsersController do
   # User. As you add validations to User, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    FactoryGirl.attributes_for(:user)
     # FactoryGirl.build(:user, password: password, admin: true)
       # .attributes.except("id", "password_encrypted", "password_salt")
       # .merge("password"=>password)
@@ -41,64 +41,137 @@ describe UsersController do
     {} #{:user_id => user.id}
   end
 
+  before :each do
+    @admin = FactoryGirl.create(:user, password: password, admin: true)
+    @user = FactoryGirl.create(:user, password: password, admin: false)
+    @user_session = {:user_id => @user.id}
+    @admin_session = {:user_id => @admin.id}
+  end
+
   describe "GET index" do
-    context "admin user" do
-      before :each do
-        @admin = FactoryGirl.create(:user, password: password, admin: true)
+    context "guest user" do
+      it "should not be able see users" do
+        get :index
+        assigns(:users).should be_blank
       end
       
+      it "should not render the index page" do
+        get :index
+        response.should_not render_template("index")
+      end
+    end
+    
+    context "admin user" do
       it "assigns all users as @users (admin users can see list of @users)"  do
-        get :index, {}, {:user_id => @admin.id} # send valid session
-        assigns(:users).should eq([@admin])
+        get :index, {}, @admin_session # send valid session
+        assigns(:users).should =~ [@user, @admin]
       end
       
       it "renders the index template" do
-        get :index, {}, {:user_id => @admin.id}
+        get :index, {}, @admin_session
         response.should render_template("index")
       end
     end
     
     context "non-admin user" do
-      before :each do
-        @user = FactoryGirl.create(:user, password: password, admin: false)
-      end
-            
       it "doesn't assign all users as @users (non-admin users CANNOT see list of @users)" do
-        get :index, {}, {:user_id => @user.id} # send valid session
+        get :index, {},  @user_session  # send valid session
         assigns(:users).should be_blank
       end
       
       it "doesn't render the index template" do
-        get :index, {}, {:user_id => @user.id}
+        get :index, {},  @user_session 
         response.should_not render_template("index")
       end      
     end
     
   end
 
-  describe "GET show" do
-    before :each do
-      @user = User.create! valid_attributes
+  describe "GET show", current: true do
+    context "guest user" do
+      it "should not be able see any user" do
+        get :show, {:id => @user.to_param}
+        assigns(:users).should be_blank
+      end
       
+      it "should not render the index page" do
+        get :show, {:id => @user.to_param}
+        response.should_not render_template("show")
+      end
+    end    
+    
+    context "admin user" do
+      it "should be able to see other users" do
+        get :show, {:id => @user.to_param}, @admin_session
+        assigns(:user).should == @user
+        response.should render_template("show")
+      end
+      
+      it "should be able to see himself" do
+        get :show, {:id => @admin.to_param}, @admin_session
+        assigns(:user).should == @admin
+        response.should render_template("show")
+      end
     end
-    it "assigns the requested user as @user" do
-      get :show, {:id => user.to_param}, valid_session
-      assigns(:user).should eq(user)
+    
+    context "non-admin user" do
+      it "should NOT be able to see other users" do
+        get :show, {:id => @admin.to_param}, @user_session
+        assigns(:user).should be_blank
+        response.should_not render_template("show")
+      end
+      
+      it "should be able to see himself" do
+        get :show, {:id => @user.to_param}, @user_session
+        assigns(:user).should == @user
+        response.should render_template("show")
+      end
     end
+
   end
 
   describe "GET new" do
-    it "assigns a new user as @user" do
+    it "assigns a new user as @user (not login required)" do
       get :new, {}, valid_session
       assigns(:user).should be_a_new(User)
     end
   end
 
   describe "GET edit" do
-    it "assigns the requested user as @user" do
-      user = User.create! valid_attributes
-      get :edit, {:id => user.to_param}, valid_session
-      assigns(:user).should eq(user)
+    context "guest user" do
+      it "should not be able to edit any user" do
+        get :edit, {:id => @user.to_param}
+        assigns(:user).should be_blank
+        response.should_not render_template("edit")
+      end
+    end
+    
+    context "registered user" do
+      it "should edit himself" do
+        get :edit, {:id => @user.to_param}, @user_session
+        assigns(:user).should == @user
+        response.should render_template("edit")
+      end
+      
+      it "should not be able to edit other users" do
+        get :edit, {:id => @admin.to_param}, @user_session
+        assigns(:user).should be_blank
+        response.should_not render_template("edit")        
+      end
+    end
+    
+    context "admin user" do
+      it "should be able to edit other users" do
+        get :edit, {:id => @user.to_param}, @admin_session
+        assigns(:user).should == @user
+        response.should render_template("edit")        
+      end
+      
+      it "should be able to edit himself" do
+        get :edit, {:id => @admin.to_param}, @admin_session
+        assigns(:user).should == @admin
+        response.should render_template("edit")        
+      end
     end
   end
 
@@ -142,25 +215,23 @@ describe UsersController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested user" do
-        user = User.create! valid_attributes
         # Assuming there are no other users in the database, this
         # specifies that the User created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        User.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => user.to_param, :user => {'these' => 'params'}}, valid_session
+        # E.g. User.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        User.any_instance.should_receive(:update_attributes).with({'email' => 'test@adtran.com'})
+        put :update, {:id => @user.to_param, :user => {'email' => 'test@adtran.com'}}, @user_session
       end
 
       it "assigns the requested user as @user" do
-        user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
-        assigns(:user).should eq(user)
+        put :update, {:id => @user.to_param, :user => {'email' => 'test@adtran.com'}}, @user_session
+        assigns(:user).should eq(@user)
       end
 
       it "redirects to the user" do
-        user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
-        response.should redirect_to(user)
+        put :update, {:id => @user.to_param, :user => {'email' => 'test@adtran.com'}}, @user_session
+        response.should redirect_to(@user)
       end
     end
 
