@@ -9,10 +9,10 @@ describe SessionsController do
     end
   end
 
-  describe "GET 'destroy'" do
+  describe "DELETE 'destroy'" do
     it "returns http success" do
-      get 'destroy'
-      response.should be_success
+      delete 'destroy'
+      response.should redirect_to (login_path)
     end
   end
 

@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Exercise do
   before :each do
-    @ex = FactoryGirl.create(:exercise)
+    # TODO use FactoryGirl.build to speed up the test
+    @ex = FactoryGirl.create(:exercise) 
     @op = FactoryGirl.create(:operation)
   end
   
