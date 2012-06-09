@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
     if user
       session[:user_id] = user.id
       flash[:success] = "Time to get smarter #{user.name}"
-      redirect_to login_path
+      redirect_to exercises_path
     else
       flash.now[:error] = "Invalid email or password"
       render 'new'
