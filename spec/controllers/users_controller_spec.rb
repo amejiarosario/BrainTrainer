@@ -44,29 +44,32 @@ describe UsersController do
   describe "GET index" do
     context "admin user" do
       before :each do
-        @user = FactoryGirl.create(:user, password: password, admin: true)
+        @admin = FactoryGirl.create(:user, password: password, admin: true)
       end
       
       it "assigns all users as @users (admin users can see list of @users)"  do
-        get :index, {}, {:user_id => @user.id} # send valid session
-        assigns(:users).should eq([@user])
+        get :index, {}, {:user_id => @admin.id} # send valid session
+        assigns(:users).should eq([@admin])
       end
       
       it "renders the index template" do
-        get :index, {}, {:user_id => @user.id}
+        get :index, {}, {:user_id => @admin.id}
         response.should render_template("index")
       end
     end
     
     context "non-admin user" do
+      before :each do
+        @user = FactoryGirl.create(:user, password: password, admin: false)
+      end
+            
       it "doesn't assign all users as @users (non-admin users CANNOT see list of @users)" do
-        user = FactoryGirl.create(:user, password: password, admin: false)
-        get :index, {}, {:user_id => user.id} # send valid session
+        get :index, {}, {:user_id => @user.id} # send valid session
         assigns(:users).should be_blank
       end
       
       it "doesn't render the index template" do
-        get :index
+        get :index, {}, {:user_id => @user.id}
         response.should_not render_template("index")
       end      
     end
@@ -74,8 +77,11 @@ describe UsersController do
   end
 
   describe "GET show" do
+    before :each do
+      @user = User.create! valid_attributes
+      
+    end
     it "assigns the requested user as @user" do
-      user = User.create! valid_attributes
       get :show, {:id => user.to_param}, valid_session
       assigns(:user).should eq(user)
     end
