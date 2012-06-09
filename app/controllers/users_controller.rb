@@ -1,10 +1,9 @@
 class UsersController < ApplicationController
-  # changed: security issue! user can put the number in the url of the other user.
-  # changed: also any user can access the excercies typing them in the URL
   before_filter :require_login, except: [:new, :create] 
   before_filter :require_admin, only: [:index]
   before_filter :require_be_yourself, only: [:update, :destroy, :edit, :show]
   
+  # changed: security issue! user can put the number in the url of the other user.
   def require_be_yourself
     unless yourself?
       flash[:warning] = "You cannot access other users data."
@@ -12,6 +11,7 @@ class UsersController < ApplicationController
     end
   end
   
+  # changed: also any user can access the excercies typing them in the URL
   def yourself?
     false if current_user.nil?
     false unless params.key? :id

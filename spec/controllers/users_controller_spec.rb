@@ -19,27 +19,58 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe UsersController do
-
+  
+  def password
+    "abced"
+  end
+ 
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
     {}
+    # FactoryGirl.build(:user, password: password, admin: true)
+      # .attributes.except("id", "password_encrypted", "password_salt")
+      # .merge("password"=>password)
   end
   
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
   def valid_session
-    {}
+    {} #{:user_id => user.id}
   end
 
   describe "GET index" do
-    it "assigns all users as @users" do
-      user = User.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:users).should eq([user])
+    context "admin user" do
+      before :each do
+        @user = FactoryGirl.create(:user, password: password, admin: true)
+      end
+      
+      it "assigns all users as @users (admin users can see list of @users)"  do
+        get :index, {}, {:user_id => @user.id} # send valid session
+        assigns(:users).should eq([@user])
+      end
+      
+      it "renders the index template" do
+        get :index, {}, {:user_id => @user.id}
+        response.should render_template("index")
+      end
     end
+    
+    context "non-admin user" do
+      it "doesn't assign all users as @users (non-admin users CANNOT see list of @users)" do
+        user = FactoryGirl.create(:user, password: password, admin: false)
+        get :index, {}, {:user_id => user.id} # send valid session
+        assigns(:users).should be_blank
+      end
+      
+      it "doesn't render the index template" do
+        get :index
+        response.should_not render_template("index")
+      end      
+    end
+    
   end
 
   describe "GET show" do
