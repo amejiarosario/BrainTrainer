@@ -14,7 +14,9 @@ BrainTrainer::Application.routes.draw do
   #get "scores/update"
 
   resources :exercises
+  
   resources :scores, only: [:index, :show, :create, :update]
+  
   resources :operations
 
   get "home/train"
@@ -26,11 +28,21 @@ BrainTrainer::Application.routes.draw do
   get "home/index"
 
   resources :users
+  
   resources :sessions, only: [:new, :create, :destroy]
   
   match "/signup" => "users#new"
+  
   match "/login" => "sessions#new"
+  
   match "/logout" => "sessions#destroy"
+  
+  match "signout", to: "sessions#destroy", as: 'signout'
+  
+  match "auth/:provider/callback", to: "sessions#create"
+
+  match "auth/failure", to: redirect("/")
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
